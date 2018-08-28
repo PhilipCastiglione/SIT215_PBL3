@@ -1,12 +1,14 @@
 class Board
-  def initialize
-    b = []
-    num_piles = rand(4) + 2
-    num_tiles = num_piles * 2 + 1 + rand(num_piles * 2)
-    num_piles.times { b.push(1) }
-    num_tiles -= num_piles
-    num_tiles.times { b[rand(num_piles)] += 1 }
-    @state = b
+  attr_reader :state
+
+  def initialize(state=nil)
+    @state = state ? state : new_state
+  end
+
+  def ==(other)
+    return false unless other.is_a? Board
+
+    @state == other.state
   end
 
   def empty?
@@ -25,6 +27,18 @@ class Board
     @state[pile - 1] -= tiles
   end
 
+  def next_boards
+    boards = []
+    @state.each_with_index do |pile, i|
+      pile.times do |remove|
+        state = @state.dup
+        state[i] = pile - remove - 1
+        boards << Board.new(state)
+      end
+    end
+    boards
+  end
+
   def print
     rows = []
     @state.max.times do |v|
@@ -33,5 +47,17 @@ class Board
     rows << ('-' * @state .size).split('')
     rows << @state.size.times.map {|t| t + 1 }
     rows.each {|r| puts " " + r.join(" ") }
+  end
+
+  private
+
+  def new_state
+    state = []
+    num_piles = rand(4) + 2
+    num_tiles = num_piles * 2 + 1 + rand(num_piles * 2)
+    num_piles.times { state.push(1) }
+    num_tiles -= num_piles
+    num_tiles.times { state[rand(num_piles)] += 1 }
+    state
   end
 end

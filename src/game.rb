@@ -42,10 +42,11 @@ class Game
     puts("New Game")
     puts()
 
-    @game_type = choose_game_type()
-    @is_ai_turn = randomize_start_player()
-    @turn = 1
     @board = Board.new()
+    @is_ai_turn = randomize_start_player()
+    @game_type = choose_game_type()
+    @turn = 1
+
     @ai = Minimax.new(@board, @is_ai_turn, @game_type)
   end
 
@@ -69,10 +70,11 @@ class Game
     puts()
     puts "It is #{@is_ai_turn ? "the AIs" : "your"} turn"
     if @is_ai_turn
-      @board = @ai.move(@board)
+      @board = @ai.move
     else
       pile = choose_pile()
       tiles = choose_tiles(pile)
+      @ai.player_move(@board)
       @board.remove(pile, tiles)
     end
     @is_ai_turn = !@is_ai_turn
