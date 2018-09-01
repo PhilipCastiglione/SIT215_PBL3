@@ -66,7 +66,7 @@ class Board
   def new_state
     state = []
     num_piles = rand(4) + 2
-    num_tiles = num_piles * 2 + 1 + rand(num_piles * 2)
+    num_tiles = [num_piles * 2 + 1 + rand(num_piles * 2), 11].min
     num_piles.times { state.push(1) }
     num_tiles -= num_piles
     num_tiles.times { state[rand(num_piles)] += 1 }

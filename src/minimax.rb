@@ -1,11 +1,10 @@
 require_relative 'debug'
 
-# TODO: there is a bug, because it isn't very smart
 class Minimax
   class Node
     attr_accessor :board, :children, :value
 
-    def initialize(board, game_type, is_ai_turn, depth=1)
+    def initialize(board, is_ai_turn, game_type, depth=1)
       @board = board
       @game_type = game_type
       @is_ai_turn = is_ai_turn
@@ -14,17 +13,18 @@ class Minimax
 
     def build_children()
       @children = @board.next_boards
-        .map {|b| Node.new(b, @game_type, !@is_ai_turn, @depth + 1) } # map to nodes
+        .map {|b| Node.new(b, !@is_ai_turn, @game_type, @depth + 1) }
 
       if @children.any?
         @children.each {|node| node.build_children() }
 
-        @value = @is_ai_turn ? @children.map(&:value).min : @children.map(&:value).max
+        @value = @is_ai_turn ? @children.map(&:value).max : @children.map(&:value).min
       else
-        if @game_type == :normal && @is_ai_turn || @game_type == :misere && !@is_ai_turn
+        # prefer close wins and far away losses
+        if @game_type == :normal && !@is_ai_turn || @game_type == :misere && @is_ai_turn
           @value = 100 - @depth
         else
-          @value = -100 - @depth
+          @value = -100 + @depth
         end
       end
 
@@ -33,8 +33,10 @@ class Minimax
   end
 
   def initialize(board, is_ai_turn, game_type)
-    @root = Node.new(board, game_type, is_ai_turn)
+    @root = Node.new(board, is_ai_turn, game_type)
+    print('🤖 the AI is plotting how best to destroy you...')
     build_tree()
+    puts()
   end
 
   def move(board)
