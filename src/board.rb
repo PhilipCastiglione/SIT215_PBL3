@@ -1,8 +1,10 @@
+require 'SecureRandom'
 class Board
-  attr_reader :state
+  attr_reader :state, :hashcode
 
-  def initialize(state=nil)
-    @state = state ? state : new_state
+  def initialize(initialized_state=nil)
+    @state = initialized_state ? initialized_state : new_state
+    @hashcode = (@state.join() + SecureRandom.hex).to_sym # risk of hash collision negligble
   end
 
   def ==(other)
@@ -11,7 +13,7 @@ class Board
     @state == other.state
   end
 
-  def empty?
+  def clear?
     @state.all? {|t| t == 0 }
   end
 
@@ -23,8 +25,9 @@ class Board
     @state[number - 1]
   end
 
-  def remove(pile, tiles)
+  def state_after_removing(pile, tiles)
     @state[pile - 1] -= tiles
+    @state
   end
 
   def next_boards
@@ -37,6 +40,10 @@ class Board
       end
     end
     boards
+  end
+
+  def diff(board)
+    @state.each_with_index.map {|pile, i| pile - board.state[i]}
   end
 
   def print

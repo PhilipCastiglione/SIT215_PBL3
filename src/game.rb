@@ -2,7 +2,7 @@ require_relative 'board'
 require_relative 'minimax'
 
 class Game
-  def initialize
+  def initialize()
     @is_playing = true
   end
 
@@ -70,15 +70,17 @@ class Game
     puts()
     puts "It is #{@is_ai_turn ? "the AIs" : "your"} turn"
     if @is_ai_turn
-      @board = @ai.move
+      @board = @ai.move(@board).tap {|b| describe_ai_move(b) }
     else
       pile = choose_pile()
       tiles = choose_tiles(pile)
-      @ai.player_move(@board)
-      @board.remove(pile, tiles)
+      new_state = @board.state_after_removing(pile, tiles)
+      @board = @ai.update_for_player_move(@board, new_state)
     end
-    @is_ai_turn = !@is_ai_turn
-    @turn += 1
+    unless finished?
+      @is_ai_turn = !@is_ai_turn
+      @turn += 1
+    end
   end
 
   def choose_pile
@@ -93,8 +95,17 @@ class Game
     (input > 0 && input <= @board.pile(pile)) ? input : choose_tiles(pile)
   end
 
+  def describe_ai_move(board)
+    change = @board.diff(board)
+    change.each_with_index do |tiles, i|
+      if tiles > 0
+        puts("The AI removed #{tiles} tile(s) from pile #{i + 1}")
+      end
+    end
+  end
+
   def finished?
-    @board.empty?
+    @board.clear?
   end
 
   def announce_winner
