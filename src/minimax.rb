@@ -11,12 +11,12 @@ class Minimax
       @depth = depth
     end
 
-    def build_children()
+    def build_children
       @children = @board.next_boards
         .map {|b| Node.new(b, !@is_ai_turn, @game_type, @depth + 1) }
 
       if @children.any?
-        @children.each {|node| node.build_children() }
+        @children.each {|node| node.build_children }
 
         @value = @is_ai_turn ? @children.map(&:value).max : @children.map(&:value).min
       else
@@ -34,9 +34,9 @@ class Minimax
 
   def initialize(board, is_ai_turn, game_type)
     @root = Node.new(board, is_ai_turn, game_type)
-    print('🤖 the AI is plotting how best to destroy you...')
-    build_tree()
-    puts()
+    print '🤖 the AI is plotting how best to destroy you...'
+    build_tree
+    puts
   end
 
   def move(board)
@@ -58,7 +58,7 @@ class Minimax
   private
 
   def build_tree
-    @root.build_children()
+    @root.build_children
     invariant(-> { @root.children.map(&:board).map(&:hashcode).uniq == @root.children.map(&:board).map(&:hashcode) }, 'duplicate board hashcode present')
     invariant(Proc.new do
       def correct(node)

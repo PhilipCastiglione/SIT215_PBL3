@@ -1,7 +1,7 @@
 class InvariantFailure < StandardError; end
 
 def invariant(predicate, message)
-  raise InvariantFailure, message if debug? && !predicate.call()
+  raise InvariantFailure, message if debug? && !predicate.call
 end
 
 def debug?

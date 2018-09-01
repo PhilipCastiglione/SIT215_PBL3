@@ -6,7 +6,7 @@ class Board
 
   def initialize(initialized_state=nil)
     @state = initialized_state ? initialized_state : new_state
-    @hashcode = (@state.join() + SecureRandom.hex).to_sym # risk of hash collision negligble
+    @hashcode = @state.join + SecureRandom.hex # risk of hash collision negligble
   end
 
   def ==(other)
@@ -20,7 +20,7 @@ class Board
   end
 
   def valid_piles
-    @state.each_with_index.map {|t, i| t > 0 ? i + 1 : false}.select(&:itself)
+    @state.each_with_index.map {|t, i| t > 0 ? i + 1 : false }.select(&:itself)
   end
 
   def pile(number)
@@ -48,7 +48,7 @@ class Board
   end
 
   def diff(board)
-    @state.each_with_index.map {|pile, i| pile - board.state[i]}
+    @state.each_with_index.map {|pile, i| pile - board.state[i] }
   end
 
   def print
