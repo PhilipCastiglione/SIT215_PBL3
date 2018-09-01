@@ -1,3 +1,4 @@
+require_relative 'debug'
 require_relative 'board'
 require_relative 'minimax'
 

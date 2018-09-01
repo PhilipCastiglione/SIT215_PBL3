@@ -1,4 +1,6 @@
 require 'SecureRandom'
+require_relative 'debug'
+
 class Board
   attr_reader :state, :hashcode
 
@@ -26,6 +28,8 @@ class Board
   end
 
   def state_after_removing(pile, tiles)
+    invariant(-> { valid_piles.include?(pile) }, 'tried to remove from invalid pile')
+    invariant(-> { @state[pile - 1] >= tiles }, 'tried to remove too many tiles')
     @state[pile - 1] -= tiles
     @state
   end
@@ -39,6 +43,7 @@ class Board
         boards << Board.new(state)
       end
     end
+    invariant(-> { !boards.map(&:state).include?(@state) }, 'board in own next_boards')
     boards
   end
 

@@ -1,3 +1,4 @@
+require_relative 'debug'
 
 # TODO: there is a bug, because it isn't very smart
 class Minimax
@@ -27,6 +28,7 @@ class Minimax
         end
       end
 
+      invariant(-> { @children.all? {|c| c.board.state.inject(&:+) < @board.state.inject(&:+) } }, 'child with too many tiles')
     end
   end
 
@@ -36,6 +38,7 @@ class Minimax
   end
 
   def move(board)
+    invariant(-> { @root.board == board }, 'game board does not match AI root before move')
     @root = @root.children.inject {|best, child| child.value > best.value ? child : best}
     @root.board
   end
@@ -45,6 +48,8 @@ class Minimax
       .children
       .select {|child| child.board.state == new_state }
       .first
+    invariant(-> { @root.board.state == new_state }, 'updating for player move resulted in wrong state')
+    invariant(-> { @root.board.hashcode != board.hashcode }, 'root has assumed the wrong hashcode')
     @root.board
   end
 
@@ -52,6 +57,14 @@ class Minimax
 
   def build_tree
     @root.build_children()
+    invariant(-> { @root.children.map(&:board).map(&:hashcode).uniq == @root.children.map(&:board).map(&:hashcode) }, 'duplicate board hashcode present')
+    invariant(Proc.new do
+      def correct(node)
+        node.board.hashcode.to_s.start_with?(node.board.state.join) &&
+          node.children.all? {|c| correct(c) }
+      end
+      correct(@root)
+    end, 'a child exists with a hashcode not matching state')
   end
 
   def find_node(node, hashcode)
