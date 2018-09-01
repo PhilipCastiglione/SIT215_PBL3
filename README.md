@@ -6,7 +6,7 @@ The AI implements a minimax tree search in Ruby.
 
 ## Solution Details
 
-The project contains a representation of the Nim game in a class called Board. This class represents a single game board state that knows information about itself (number of piles, number of tiles on each pile)and what legal board states are can be reached from this state.
+The project contains a representation of the Nim game in a class called Board. This class represents a single game board state that knows information about itself (number of piles, number of tiles on each pile) and what legal board states are can be reached from this state.
 
 The problem representation permits between 2 - 5 piles, and up to 2(piles) + 1 tiles. The board state is represented as an 1d array of n piles, each of which is an int representing the number of piles on that tile.
 
