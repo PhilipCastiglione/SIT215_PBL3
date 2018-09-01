@@ -2,14 +2,10 @@
 
 To use, `ruby run.rb` in the project root
 
-## DONE:
-
-- project structure, runner etc
-- engine
-- game & board logic
-
 ## TODO:
 
 - readme
-- minimax logic
 - presentation
+- optimise for speed
+- add further invariants
+- manually test more
