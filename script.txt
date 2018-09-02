@@ -1,44 +1,85 @@
 # Show title screen
+
 Hi and welcome to our presentation of Problem Solving task 3: A game of Nim. Our group consists of Lee and Phil and today we'll be demonstrating our implementation of a program in which a human plays a game of Nim against an Artificial intelligence agent.
 
 # Show how to play Nim
+
 The game of Nim is a game where a board is setup with a number of rows or heaps of objects which for the sake of simplicity in this presentation we'll refer to as heaps and tiles.
 In the game two players take turns in removing tiles from the board where a player can remove any number of tiles but from only one heap per turn.
 In the standard game mode, the aim is to be the player who removes the last object left on the board.
 In the alternate misere game mode the opposite is true where the aim is to force your opponent to be the one left to remove the last object from the board.
 
 # Show skills Audit
+
 Firstly we met for a chat after reading the problem material and decided to undertake a skills audit based off the problem requirements identifying the core skills we would need to be able to complete the task. We then did some research into how to solve the problem and looked at other peoples finished solutions.
 We decided that using an implementation of the minimax algorithm in Ruby was the best way for us to complete the task.
 
 # Show solution challenges
+
 There are a few challenges in our solution; firstly the AI needs to be able to play the game against an unpredictable and often imperfect human opponent as opposed to playing against another AI opponent like itself.
 
 Secondly, the solution needs to involve an interactive environment where both the human player and the AI can interact together.
 
 And thirdly, the AI needs to recognise what game mode is being played, either the normal mode or misere mode, and adjust its strategy accordingly to give itself the best odds of winning the game.
 
-
 # Show AI strategy
+
+As an AI environment, the game of Nim is:
+- Fully observable
+- Deterministic
+- Episodic
+- Static
+- Discrete
+- Multiagent
+
+Many classic AI examples, particularly of games, fit this description: checkers, chess, go...
+
+Two basic strategies apply for designing AI systems. The simplest is to build a complete graph of the whole game, based on starting conditions, before the game begins. This strategy incurs a heavy up front processing cost as the tradeoff for simplicity and speed during operation (the game). The second approach is to reprocess the graph after checkpoints, ie. an opponent move. This is necessary when the graph is too large to fully compute, or when using strategies that require updating such as heuristics or tree pruning.
+
+Since our state space is very small, we chose the simpler approach and compute the full minimax tree up front, then we only need to navigate through the tree as the game progresses. This has the added benefit of making gameplay fast.
 
 # Show solution diagram
 
+Before our demonstration, let's walk through how a game of Nim can look. Take a starting board of 2 heaps with 2 tiles on each.
+
+From here, Player 1 will take a move the board will change to one of 4 possible states. If Player 1 takes one tile from the left heap, we end up in the leftmost state with 1 tile on the left heap and 2 on the right. If Player 1 instead takes 2 tiles from the left heap, we end up with no tiles left on the left heap and 2 on the right. You can see all 4 possible states in the second row.
+
+Now it will be Player 2's turn. Depending on which move Player 1 made, they will start from one of these 4 board states. Each of these has a number of valid next board states that might result from Player 2's move. 
+
+Players take turns until the board is empty. Obviously strategy will vary depending on whether the game is being played as the normal or misere version.
+
 # Show demonstration slide 1
+
+Here's our application in action. When you start the game you are welcomed, and in the background a random board state is generated. For this part of the demo, we hardcoded a board state of 2 heaps with 2 tiles each.
+
+A random player is chosen, in this case it's me, and we choose our game type.
 
 # Show demonstration slide 2
 
+We chose to play misere.
+
+The game prints an ominous message while the AI build out the minimax tree.
+
+You can see a board representation printed in the console. I'm planning on take one tile from the first heap, which will move us to the highlighted state in our drawn out tree in the bottom right.
+
 # Show demonstration slide 3
+
+After I made this move, the AI took it's turn. It removed 2 tiles form the second heap, moving us to the newly highlighted board state that you can see on the right. That matches what we see in the console, 1 tile left on the first heap. Oh, since it's our turn we have to take this tile.
 
 # Show demonstration slide 4
 
-# Show demonstration slide 5
+And since we're playing misere, that means we lose. Whoops. Next we'll play a couple of games more quickly so you can see the AI in action.
 
 # Show demonstration video
 
+<no voiceover required i think>
+
 # Show limitations and constraints
+
 Because we are computing the full graph of all possible moves from the initial game state, our approach is very computationally expensive. We accepted this tradeoff because of the limited number of heaps and tiles we knew we would be solving for.
 If we wanted to extend our solution to account for larger numbers of heaps and tiles we would need to make some adjustments. The simplest of those would be to add alpha beta pruning to the minimax tree computation, and recalculate the tree after each move. An additional optimisation would be to hash each board state with the heap/tile state of the board and the current player's turn. Then, we could keep a single reference to a node referenced by this hashcode and only compute a single subtree from that point, as the subtree from this point would be identical regardless of where it is encountered in the tree.
 Lastly, this isn't really a limitation of the solution but more of a general point. Because the game is deterministic and fully observable, the AI always makes the "correct" move, so Lee/Phil and I pretty much always end up losing, unless we're lucky with the starting situation and it's obvious how to get a guaranteed win.
 
 # Show references and conclusion
+
 A link to the GitHub repository containing some working documents, and code you saw, is provided in the video description. Thanks for watching.
