@@ -4,7 +4,7 @@ Hi and welcome to our presentation of Problem Solving task 3: A game of Nim. Our
 
 # Show how to play Nim
 
-The game of Nim is a game where a board is setup with a number of rows or heaps of objects which for the sake of simplicity in this presentation we'll refer to as heaps and tiles.
+The game of Nim is a game where a board is setup with a number of 'rows or heaps' of objects which for the sake of simplicity in this presentation we'll refer to as heaps and tiles.
 In the game two players take turns in removing tiles from the board where a player can remove any number of tiles but from only one heap per turn.
 In the standard game mode, the aim is to be the player who removes the last object left on the board.
 In the alternate misere game mode the opposite is true where the aim is to force your opponent to be the one left to remove the last object from the board.
@@ -12,7 +12,7 @@ In the alternate misere game mode the opposite is true where the aim is to force
 # Show skills Audit
 
 Firstly we met for a chat after reading the problem material and decided to undertake a skills audit based off the problem requirements identifying the core skills we would need to be able to complete the task. We then did some research into how to solve the problem and looked at other peoples finished solutions.
-We decided that using an implementation of the minimax algorithm in Ruby was the best way for us to complete the task.
+We decided that using an implementation of the Minimax algorithm in Ruby was the best way for us to complete the task.
 
 # Show solution challenges
 
@@ -44,7 +44,7 @@ Before our demonstration, let's walk through how a game of Nim can look. Take a 
 
 From here, Player 1 will take a move the board will change to one of 4 possible states. If Player 1 takes one tile from the left heap, we end up in the leftmost state with 1 tile on the left heap and 2 on the right. If Player 1 instead takes 2 tiles from the left heap, we end up with no tiles left on the left heap and 2 on the right. You can see all 4 possible states in the second row.
 
-Now it will be Player 2's turn. Depending on which move Player 1 made, they will start from one of these 4 board states. Each of these has a number of valid next board states that might result from Player 2's move. 
+Now it will be Player 2's turn. Depending on which move Player 1 made, they will start from one of these 4 board states. Each of these has a number of valid next board states that might result from Player 2's move.
 
 Players take turns until the board is empty. Obviously strategy will vary depending on whether the game is being played as the normal or misere version.
 
