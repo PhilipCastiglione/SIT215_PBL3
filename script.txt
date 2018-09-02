@@ -1,7 +1,11 @@
 # Show title screen
-Hi and welcome to our presentation of Problem Solving task 3: A game of Nim. Our group consists of Lee and Phil and today we'll be demonstrating our program in which a human plays a game of Nim against an Artificial intelligence agent.
+Hi and welcome to our presentation of Problem Solving task 3: A game of Nim. Our group consists of Lee and Phil and today we'll be demonstrating our implementation of a program in which a human plays a game of Nim against an Artificial intelligence agent.
 
 # Show how to play Nim
+The game of Nim is a game where a board is setup with a number of rows or heaps of objects which for the sake of simplicity in this presentation we'll refer to as heaps and tiles.
+In the game two players take turns in removing tiles from the board where a player can remove any number of tiles but from only one heap per turn.
+In the standard game mode, the aim is to be the player who removes the last object left on the board.
+In the alternate misere game mode the opposite is true where the aim is to force your opponent to be the one left to remove the last object from the board.
 
 # Show skills Audit
 
@@ -29,3 +33,4 @@ If we wanted to extend our solution to account for larger numbers of heaps and t
 Lastly, this isn't really a limitation of the solution but more of a general point. Because the game is deterministic and fully observable, the AI always makes the "correct" move, so Lee/Phil and I pretty much always end up losing, unless we're lucky with the starting situation and it's obvious how to get a guaranteed win.
 
 # Show references and conclusion
+A link to the GitHub repository containing some working documents, and the diagram and code you saw, is provided in the video description. Thanks for watching.
