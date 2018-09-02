@@ -8,9 +8,16 @@ In the standard game mode, the aim is to be the player who removes the last obje
 In the alternate misere game mode the opposite is true where the aim is to force your opponent to be the one left to remove the last object from the board.
 
 # Show skills Audit
-Firstly we met for a chat after reading the problem material and decided to undertake a skills audit based off the problem requirements identifying the core skills we would need to be able to complete the task. We then did significant research into the theory of how to solve the problem and looked at others finished solutions.
+Firstly we met for a chat after reading the problem material and decided to undertake a skills audit based off the problem requirements identifying the core skills we would need to be able to complete the task. We then did some research into how to solve the problem and looked at other peoples finished solutions.
+We decided that using an implementation of the minimax algorithm in Ruby was the best way for us to complete the task.
 
 # Show solution challenges
+There are a few challenges in our solution; firstly the AI needs to be able to play the game against an unpredictable and often imperfect human opponent as opposed to playing against another AI opponent like itself.
+
+Secondly, the solution needs to involve an interactive environment where both the human player and the AI can interact together.
+
+And thirdly, the AI needs to recognise what game mode is being played, either the normal mode or misere mode, and adjust its strategy accordingly to give itself the best odds of winning the game.
+
 
 # Show AI strategy
 
@@ -34,4 +41,4 @@ If we wanted to extend our solution to account for larger numbers of heaps and t
 Lastly, this isn't really a limitation of the solution but more of a general point. Because the game is deterministic and fully observable, the AI always makes the "correct" move, so Lee/Phil and I pretty much always end up losing, unless we're lucky with the starting situation and it's obvious how to get a guaranteed win.
 
 # Show references and conclusion
-A link to the GitHub repository containing some working documents, and the diagram and code you saw, is provided in the video description. Thanks for watching.
+A link to the GitHub repository containing some working documents, and code you saw, is provided in the video description. Thanks for watching.
