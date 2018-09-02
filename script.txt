@@ -8,6 +8,7 @@ In the standard game mode, the aim is to be the player who removes the last obje
 In the alternate misere game mode the opposite is true where the aim is to force your opponent to be the one left to remove the last object from the board.
 
 # Show skills Audit
+Firstly we met for a chat after reading the problem material and decided to undertake a skills audit based off the problem requirements identifying the core skills we would need to be able to complete the task. We then did significant research into the theory of how to solve the problem and looked at others finished solutions.
 
 # Show solution challenges
 
