@@ -74,6 +74,24 @@ And since we're playing misere, that means we lose. Whoops. Next we'll play a co
 
 <no voiceover required i think>
 
+# Show code snippet slide 1
+
+We're not going to spend too long in the code as we've provided links to the GitHub repository containing the full source and documentation at the end of the video. 
+
+Let's just briefly focus on a couple of interesting things.
+
+Here we see the Node class nested within the Minimax class. Node is used internally within Minimax to represent nodes on the tree. Each node contains a board object, which has a representation of game state, along with the information needed for the minimax algorithm: the game type (misere or normal), whose turn it is, and the current depth within the tree.
+
+A node can recursively build it's children, will calculate terminal values and propagate values up the tree.
+
+Some of this logic was a little tricky and debugging was initially painful, so let us draw your attention to line 31, where a function named invariant gets called, passing in an anonymous function with some assertion, and a message to print if the invariant is violated.
+
+# Show code snippet slide 2
+
+The function is defined in a debug file we import and will be used if the application is run in debug mode. The function tests the predicate, and if it fails, an error is raised and the application will exit, printing the provided message to the console.
+
+The implementation is fairly simple, but this pattern was invaluable in allowing us to scatter assertions throughout the code – which aren't provided as a language construct in Ruby – and these assertions could prove that our expectations were met in tricky functions where a lot of logic was operating. You'll see a number of these in our codebase if you check out the repository.
+
 # Show limitations and constraints
 
 Because we are computing the full graph of all possible moves from the initial game state, our approach is very computationally expensive. We accepted this tradeoff because of the limited number of heaps and tiles we knew we would be solving for.
