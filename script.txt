@@ -1,0 +1,31 @@
+# Show title screen
+Hi and welcome to our presentation of Problem Solving task 3: A game of Nim. Our group consists of Lee and Phil and today we'll be demonstrating our program in which a human plays a game of Nim against an Artificial intelligence agent.
+
+# Show how to play Nim
+
+# Show skills Audit
+
+# Show solution challenges
+
+# Show AI strategy
+
+# Show solution diagram
+
+# Show demonstration slide 1
+
+# Show demonstration slide 2
+
+# Show demonstration slide 3
+
+# Show demonstration slide 4
+
+# Show demonstration slide 5
+
+# Show demonstration video
+
+# Show limitations and constraints
+Because we are computing the full graph of all possible moves from the initial game state, our approach is very computationally expensive. We accepted this tradeoff because of the limited number of heaps and tiles we knew we would be solving for.
+If we wanted to extend our solution to account for larger numbers of heaps and tiles we would need to make some adjustments. The simplest of those would be to add alpha beta pruning to the minimax tree computation, and recalculate the tree after each move. An additional optimisation would be to hash each board state with the heap/tile state of the board and the current player's turn. Then, we could keep a single reference to a node referenced by this hashcode and only compute a single subtree from that point, as the subtree from this point would be identical regardless of where it is encountered in the tree.
+Lastly, this isn't really a limitation of the solution but more of a general point. Because the game is deterministic and fully observable, the AI always makes the "correct" move, so Lee/Phil and I pretty much always end up losing, unless we're lucky with the starting situation and it's obvious how to get a guaranteed win.
+
+# Show references and conclusion
